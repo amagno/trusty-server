@@ -1,0 +1,68 @@
+---
+language: python
+python: "2.7"
+
+env:
+  - PLAYBOOK=ansible/development-playbook.yml
+  - INVETORY=ansible/invetories/travis
+
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -y curl
+
+install:
+  # Install Ansible.
+  - pip install ansible
+
+
+script:
+  # Add ansible.cfg to pick up roles path.
+  # - ls
+  # teste
+  # - printf '[defaults]\nroles_path = /home/travis/build/amagno/ansible/' > tests/ansible.cfg
+  
+  #- cp -r /home/travis/build/amagno/ansible/roles/ /home/travis/build/amagno/ansible/tests/roles/
+
+  #- ls tests/roles/
+
+  # Check the role/playbook's syntax.
+  - ansible-playbook -i tests/inventory --syntax-check --list-tasks tests/$PLAY
+
+  # Run the role/playbook with ansible-playbook.
+  #- ansible-playbook -i tests/inventory --connection=local --sudo -vvvv tests/$PLAY
+
+  #- php -v
+
+  #- nginx -v
+
+  #- ls /etc/nginx/
+
+  #- cat /etc/nginx/nginx.conf
+
+  #- ls /etc/nginx/sites-enabled/
+
+  #- cat /etc/nginx/sites-enabled/default
+
+  #- cat /etc/nginx/sites-enabled/nginx-ansible
+
+  #- ls -la /var/www/
+
+  #- ls -la /var/www/ansibletest/
+
+  #- ls -la /etc/php5/fpm/
+
+  #- cat /etc/php5/fpm/php-fpm.conf
+
+  #- ls /etc/php5/fpm/pool.d/
+
+  #- cat /etc/php5/fpm/pool.d/www.conf
+
+  # Run the role/playbook again, checking to make sure it's idempotent.
+  #- >
+  #  ansible-playbook -i tests/inventory tests/$SITE --connection=local --sudo
+  # | grep -q 'changed=0.*failed=0'
+  #  && (echo 'Idempotence tests: pass' && exit 0)
+  # || (echo 'Idempotence tests: fail' && exit 1)
+
+  # Request a page via Apache, to make sure Apache is running and responds.
+  #- "curl http://localhost/"

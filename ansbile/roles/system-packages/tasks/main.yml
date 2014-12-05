@@ -1,0 +1,4 @@
+- name: Install system packages vars system.packages
+  sudo: yes
+  apt: pgk={{ item }} state=latest
+  wich_items: system.packages
