@@ -1,8 +1,5 @@
 system:
    packages:
     - python-software-properties
-    #- git
-    #- vim
-	#- wget
 	- curl
 	
