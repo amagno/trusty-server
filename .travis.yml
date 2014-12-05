@@ -22,7 +22,7 @@ script:
   #- ls tests/roles/
 
   # Check the role/playbook's syntax.
-  - ansible-playbook -i ansible/invetories/travis --syntax-check --list-tasks ansible/development-playbook.yml
+  - ansible-playbook -i ansible/invetories/travis --syntax-check --list-tasks ansible/playbook.yml
 
   # Run the role/playbook with ansible-playbook.
   #- ansible-playbook -i tests/inventory --connection=local --sudo -vvvv tests/$PLAY

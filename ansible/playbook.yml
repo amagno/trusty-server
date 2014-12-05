@@ -1,0 +1,13 @@
+---
+- hosts: all
+  vars:
+  # env: devlopment or production
+    env: devlopment
+  vars_files:
+  #System packages to install
+    - vars/system-packages.yml
+  roles:
+    - system-packages
+    - nginx
+
+

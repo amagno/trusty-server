@@ -1,9 +1,0 @@
----
-- hosts: all
-  var_files:
-    - vars/system-packages.yml
-  roles:
-    - system-packages
-    - nginx
-
-
