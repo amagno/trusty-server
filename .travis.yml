@@ -2,10 +2,6 @@
 language: python
 python: "2.7"
 
-env:
-  - PLAYBOOK=ansible/development-playbook.yml
-  - INVETORY=ansible/invetories/travis
-
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -y curl
@@ -26,7 +22,7 @@ script:
   #- ls tests/roles/
 
   # Check the role/playbook's syntax.
-  - ansible-playbook -i $INVETORY --syntax-check --list-tasks $PLAYBOOK
+  - ansible-playbook -i ansible/invetories/travis --syntax-check --list-tasks ansible/development-playbook.yml
 
   # Run the role/playbook with ansible-playbook.
   #- ansible-playbook -i tests/inventory --connection=local --sudo -vvvv tests/$PLAY
