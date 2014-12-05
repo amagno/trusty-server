@@ -1,5 +1,4 @@
 system:
-   packages:
-    - python-software-properties
-	- curl
-	
+    packages:
+        - python-software-properties
+        - curl

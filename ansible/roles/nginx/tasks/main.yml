@@ -1,6 +1,6 @@
 ---
 - include: nginx-ppa.yml
 
-- name: Install nginx
+- name: Install Nginx
   sudo: yes
   apt: pkg=nginx state=latest

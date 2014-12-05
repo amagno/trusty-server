@@ -1,5 +1,5 @@
 ---
-- name: Add nginx ppa
+- name: Add Nginx PPA Repository
   sudo: yes
   apt_repository: repo=ppa:nginx/stable
 

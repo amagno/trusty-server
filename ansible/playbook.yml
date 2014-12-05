@@ -3,11 +3,17 @@
   vars:
   # env: devlopment or production
     env: devlopment
+    http_base_path: /sites
   vars_files:
+  #Domains to add on sites-available
+    - vars/domains.yml
   #System packages to install
     - vars/system-packages.yml
   roles:
     - system-packages
     - nginx
+    - php5-fpm
+    - php5-cli
+    - add-domains-available
 
 
