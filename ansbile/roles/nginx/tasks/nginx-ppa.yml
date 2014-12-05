@@ -1,0 +1,9 @@
+---
+- name: Add nginx ppa
+  sudo: yes
+  apt_repository: repo=ppa:nginx/stable
+
+- name: Update Apt Repository
+  sudo: yes
+  apt: update_cache=yes
+
