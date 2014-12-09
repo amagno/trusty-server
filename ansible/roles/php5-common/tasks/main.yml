@@ -1,5 +1,17 @@
-- name: Install php5-xdebug
+- name: Install Development Modules in /vars/php with ENV = development
   sudo: yes
-  apt: pkg=php5-xdebug state=latest
-  when: env == "devlopment"
+  apt: pkg={{ item }} state=latest
+  with_items: php.development_modules
+  when: env == "development"
+  notify: restart php5-fpm
 
+- name: Install Default Modules in /vars/php
+  sudo: yes
+  apt: pkg={{ item }} state=latest
+  with_items: php.default_modules
+
+- name: Remove all Development Modules in /vars/php with ENV = production
+  sudo: yes
+  apt: pkg={{ item }} state=absent
+  with_items: php.development_modules
+  when: env == "production"

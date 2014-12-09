@@ -1,0 +1,4 @@
+---
+- name: Add Ondrej PHP PPA Repository
+  sudo: yes
+  apt_repository: repo="ppa:ondrej/php5-{{ php.version }}" update_cache=yes

@@ -1,5 +1,7 @@
----
-- include: nginx-ppa.yml
+- name: Add nginx repository
+  sudo: yes
+  apt_repository: repo=ppa:nginx/stable
+
 
 - name: Install Nginx
   sudo: yes

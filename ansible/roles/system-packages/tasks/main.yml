@@ -1,4 +1,4 @@
-- name: Install System Packages On /vars/system-packages
+- name: Install System Packages On /vars/vars system.packages
   sudo: yes
   apt: pkg={{ item }} state=latest
   with_items: system.packages

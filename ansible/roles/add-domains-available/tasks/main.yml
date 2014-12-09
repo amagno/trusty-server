@@ -1,9 +1,11 @@
+- name: Remove all default site enabled
+  sudo: yes
+  shell: rm /etc/nginx/sites-enabled/*
+  when: domains is defined
+  ignore_errors: yes
+
 - name: Add domains Available to Nginx Sites-Available
   sudo: yes
-  template: src=vhost-nginx-template.j2 dest=/etc/nginx/sites-enabled/{{ item.server_name }} mode=0766
+  template: src=vhost-nginx-template.j2 dest=/etc/nginx/sites-enabled/{{ item.server_name }} mode=644
   with_items: domains
-
-- name: Remove default site when domains available
-  sudo: yes
-  shell: rm /etc/nignx/sites-enabled/default
-  when: domains is defined
+  notify: restart nginx

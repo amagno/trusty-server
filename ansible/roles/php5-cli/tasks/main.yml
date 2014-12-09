@@ -1,3 +1,13 @@
 - name: Install php5-cli
   sudo: yes
   apt: pkg=php5-cli state=latest
+
+- name: Copy development.ini with ENV = development
+  sudo: yes
+  copy: src=development.ini dest=/etc/php5/cli/php.ini force=yes backup=yes owner=root group=root mode=0644
+  when: env == "development"
+
+- name: Copy production.ini with ENV = production
+  sudo: yes
+  copy: src=production.ini dest=/etc/php5/cli/php.ini force=yes backup=yes owner=root group=root mode=0644
+  when: env == "production"

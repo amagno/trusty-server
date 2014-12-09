@@ -1,0 +1,8 @@
+php:
+  version:
+      - 5.6
+  development_modules:
+      - php5-xdebug
+  default_modules:
+      - php5-mcrypt
+

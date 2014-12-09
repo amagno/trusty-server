@@ -1,19 +1,17 @@
 ---
 - hosts: all
   vars:
-  # env: devlopment or production
-    env: devlopment
-    http_base_path: /sites
+  # env: development or production
+    env: development
   vars_files:
-  #Domains to add on sites-available
-    - vars/domains.yml
-  #System packages to install
-    - vars/system-packages.yml
+    - vars/vars.yml
   roles:
+    - init
     - system-packages
     - nginx
-    - php5-fpm
+    - mysql
+    - php5
     - php5-cli
+    - php5-fpm
+    - php5-common
     - add-domains-available
-
-

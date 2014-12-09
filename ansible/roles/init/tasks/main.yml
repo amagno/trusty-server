@@ -1,0 +1,7 @@
+- name: Install python-software-properties
+  sudo: yes
+  apt: pkg=python-software-properties state=latest
+
+- name: Install python-selinux
+  sudo: yes
+  apt: pkg=python-selinux state=latest

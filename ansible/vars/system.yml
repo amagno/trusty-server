@@ -1,4 +1,9 @@
 system:
+    repositories:
+        - nginx/stable
+        - ondrej/php5-5.6
     packages:
         - python-software-properties
         - curl
+
+
