@@ -1,5 +1,6 @@
 ---
 - hosts: all
+  sudo: yes
   vars:
   # env: development or production
     env: development

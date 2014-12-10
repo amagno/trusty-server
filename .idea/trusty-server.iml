@@ -7,9 +7,15 @@
     <orderEntry type="module-library">
       <library name="PHARS">
         <CLASSES>
+          <root url="phar://$MODULE_DIR$/sites/app-base/composer.phar" />
+          <root url="phar://$MODULE_DIR$/sites/app-base/vendor/phpdocumentor/phpdocumentor/tests/data/test.phar" />
+          <root url="phar://$MODULE_DIR$/sites/app-base/vendor/phpdocumentor/fileset/tests/data/test.phar" />
           <root url="phar://$MODULE_DIR$/sites/amagno.com.br/composer.phar" />
         </CLASSES>
         <SOURCES>
+          <root url="phar://$MODULE_DIR$/sites/app-base/composer.phar" />
+          <root url="phar://$MODULE_DIR$/sites/app-base/vendor/phpdocumentor/phpdocumentor/tests/data/test.phar" />
+          <root url="phar://$MODULE_DIR$/sites/app-base/vendor/phpdocumentor/fileset/tests/data/test.phar" />
           <root url="phar://$MODULE_DIR$/sites/amagno.com.br/composer.phar" />
         </SOURCES>
       </library>

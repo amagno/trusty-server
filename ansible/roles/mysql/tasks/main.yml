@@ -1,77 +1,56 @@
 ---
-- name: Show hostname debug
-  debug: msg="Hostname {{ ansible_hostname }}"
-
 - name: Add Mysql Ondrej PPA Repository
-  sudo: yes
   apt_repository: repo="ppa:ondrej/mysql-{{ mysql.version }}" update_cache=yes
 
 - name: Install the mysql packages
-  sudo: yes
   apt: name={{ item }} state=latest
   with_items:
       - mysql-server
       - python-mysqldb
 
-- name: Create the directory /etc/mysql/conf.d
-  sudo: yes
-  file: path=/etc/mysql/conf.d state=directory
-  notify:
-   - restart mysql
+- name: Ensure MySQL is started and enabled on boot.
+  service: "name=mysql state=started enabled=yes"
+
+- name: Copy the my.cnf file
+  template: src=default.my.cnf.j2 dest=/etc/mysql/my.cnf owner=root group=root mode=0644
+  notify: restart mysql
+
+- name: Check if .my.cnf file already exists.
+  stat: "path=/root/.my.cnf"
+  register: mycnf_file
+
+- name: Update MySQL root password for all root accounts.
+  mysql_user:
+    name: "root"
+    host: "{{ item }}"
+    password: "{{ mysql.root_password }}"
+  with_items:
+    - 127.0.0.1
+    - ::1
+    - localhost
+  when: mycnf_file.stat.exists == false
 
 - name: copy .my.cnf file with root password credentials
-  sudo: yes
-  template: src=.my.cnf.j2 dest=~/.my.cnf mode=0600 force=yes
-  notify:
-   - restart mysql
-
-- name: update mysql root password for all root accounts
-  mysql_user: name=root host={{ item }} password={{ mysql.root_password }}
-  with_items:
-   - "{{ ansible_hostname }}"
-   - 127.0.0.1
-   - ::1
-   - localhost
-  when: ansible_hostname != 'localhost'
-
-- name: update mysql root password for all root accounts
-  mysql_user: name=root host={{ item }} password={{ mysql.root_password }}
-  with_items:
-   - 127.0.0.1
-   - ::1
-   - localhost
-  when: ansible_hostname == 'localhost'
+  template: src=.my.cnf.j2 dest=/root/.my.cnf owner=root group=root mode=0600
+  notify: restart mysql
 
 - name: update root accounts for provides hosts access
-  sudo: yes
   mysql_user: name=root host={{ item }} password={{ mysql.root_password }} priv="*.*:ALL"
   with_items: mysql.root_hosts
 
-- name: Copy the my.cnf file
-  sudo: yes
-  template: src=default.my.cnf.j2 dest=/etc/mysql/my.cnf
-
-
 - name: ensure anonymous users are not in the database
-  sudo: yes
-  mysql_user: name='' host={{ item }} state=absent
-  with_items:
-   - localhost
-   - "{{ ansible_hostname }}"
+  mysql_user: name='' state=absent
 
 - name: remove the test database
-  sudo: yes
   mysql_db: name=test state=absent
   when: env == "production"
 
 - name: Create the database's
-  sudo: yes
   mysql_db: name={{ item }} state=present
   with_items: mysql.data_bases
   when: mysql.data_bases|lower() != 'none'
 
 - name: Create the database users
-  sudo: yes
   mysql_user: name={{ item.name }}  password={{ item.password|default("123") }} priv={{ item.privileges|default("*.*:USAGE") }} state=present host={{ item.host | default("localhost") }}
   with_items: mysql.users
   when: mysql.users|lower() != 'none'
