@@ -1,44 +1,57 @@
 ---
 system:
+#System Packages
     packages:
-      - curl
-      - git
+       - curl
+       - git
+#PHP Vars
 php:
     version: 5.6
     development_modules:
-      - php5-xdebug
+       - php5-xdebug
     default_modules:
-      - php5-mcrypt
-      - php5-mysql
+       - php5-mcrypt
+       - php5-mysql
+
+#Mysql Vars Configuration
 mysql:
     version: 5.6
     port: 3306
     bind_address: 192.168.1.157
-    root_password: 123
+    root_password: mysql123
     root_hosts:
         - 192.168.1.%
+
+    #Data bases available on mysql
     data_bases:
-        - foobar
         - testing
+
+    #Users available on mysql
     users:
-        - name: foobar
-          password: 123
-          host: "%"
-          privileges: "foobar.*:ALL"
+    #PHPmyadmin user
+        - name: pma
+          password: pmapass
+          host: localhost
+          privileges: "*.*:SELECT,INSERT,UPDATE,DELETE"
 
         - name: testing
           password: 123
           host: "%"
           privileges: "testing.*:ALL"
-domains:
-    - name: dev alexandre
-      server_name: dev.amagno.com.br
-      doc_root: /vagrant/teste
 
-    - name: local
-      server_name: localhost 192.168.1.157
-      doc_root: /vagrant/teste
+#NPM packages
+npm:
+    global_packages:
+        - bower
+        - gulp
+
+#Domains Available
+domains:
+
+    - name: Home Page
+      server_name: amagno.com.br www.amagno.com.br dev.amagno.com.br dev.amagno
+      doc_root: /sites/amagno.com.br/public
 
     - name: phpmyadmin
       server_name: phpmyadmin.amagno.com.br
-      doc_root: /vagrant/phpmyadmin
+      doc_root: /sites/phpmyadmin

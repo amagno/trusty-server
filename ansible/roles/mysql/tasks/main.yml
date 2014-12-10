@@ -13,35 +13,44 @@
       - mysql-server
       - python-mysqldb
 
-- name: Copy the my.cnf file
-  sudo: yes
-  template: src=default.my.cnf.j2 dest=/etc/mysql/my.cnf
-  notify: 
-   - restart mysql
-
 - name: Create the directory /etc/mysql/conf.d
   sudo: yes
   file: path=/etc/mysql/conf.d state=directory
   notify:
    - restart mysql
 
-- name: update mysql root password for all root accounts and grant local access
+- name: copy .my.cnf file with root password credentials
   sudo: yes
+  template: src=.my.cnf.j2 dest=~/.my.cnf mode=0600 force=yes
+  notify:
+   - restart mysql
+
+- name: update mysql root password for all root accounts
   mysql_user: name=root host={{ item }} password={{ mysql.root_password }}
   with_items:
    - "{{ ansible_hostname }}"
    - 127.0.0.1
    - ::1
    - localhost
+  when: ansible_hostname != 'localhost'
+
+- name: update mysql root password for all root accounts
+  mysql_user: name=root host={{ item }} password={{ mysql.root_password }}
+  with_items:
+   - 127.0.0.1
+   - ::1
+   - localhost
+  when: ansible_hostname == 'localhost'
 
 - name: update root accounts for provides hosts access
   sudo: yes
-  mysql_user: name=root host={{ item }} password={{ mysql.root_password }}
+  mysql_user: name=root host={{ item }} password={{ mysql.root_password }} priv="*.*:ALL"
   with_items: mysql.root_hosts
 
-- name: copy .my.cnf file with root password credentials
+- name: Copy the my.cnf file
   sudo: yes
-  template: src=.my.cnf.j2 dest=~/.my.cnf mode=0600
+  template: src=default.my.cnf.j2 dest=/etc/mysql/my.cnf
+
 
 - name: ensure anonymous users are not in the database
   sudo: yes

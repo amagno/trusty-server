@@ -14,4 +14,8 @@
     - php5-cli
     - php5-fpm
     - php5-common
+    - composer
+    - redis-server
+    - nodejs
+    - npm
     - add-domains-available

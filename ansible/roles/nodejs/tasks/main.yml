@@ -1,0 +1,8 @@
+---
+- name: Add NodeSource PPA Repository Script
+  sudo: yes
+  shell: curl -sL https://deb.nodesource.com/setup | sudo bash -
+
+- name: Install Node JS and Npm
+  sudo: yes
+  apt: pkg=nodejs state=latest

@@ -1,8 +1,0 @@
-domains:
-  - name: dev alexandre
-    server_name: dev.amagno.com.br
-    doc_root: /vagrant/teste
-
-  - name: local
-    server_name: localhost 192.168.1.157
-    doc_root: /vagrant/teste
