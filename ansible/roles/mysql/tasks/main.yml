@@ -1,9 +1,14 @@
 ---
+- name: Check if MySQL is already installed.
+  stat: path=/etc/init.d/mysql
+  register: mysql_installed
+
 - name: Add Mysql Ondrej PPA Repository
   apt_repository: repo="ppa:ondrej/mysql-{{ mysql.version }}" update_cache=yes
+  when: mysql_installed.stat.exists == false
 
 - name: Install the mysql packages
-  apt: name={{ item }} state=latest
+  apt: name={{ item }} state=installed
   with_items:
       - mysql-server
       - python-mysqldb
