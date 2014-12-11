@@ -42,6 +42,7 @@
 - name: update root accounts for provides hosts access
   mysql_user: name=root host={{ item }} password={{ mysql.root_password }} priv="*.*:ALL"
   with_items: mysql.root_hosts
+  when: mysql.root_hosts|lower() != 'none'
 
 - name: ensure anonymous users are not in the database
   mysql_user: name='' state=absent
