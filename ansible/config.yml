@@ -47,10 +47,11 @@ npm:
 #Domains Available
 domains:
 
-    - name: Home Page
-      server_name: amagno.com.br www.amagno.com.br dev.amagno.com.br dev.amagno
-      doc_root: /sites/amagno.com.br/public
+    - name: dev.amagno
+      server_name: amagno.com.br www.amagno.com.br dev.amagno.com.br dev.amagno localhost
+      root: /sites/amagno.com.br/public
 
     - name: phpmyadmin
-      server_name: phpmyadmin.amagno.com.br
-      doc_root: /sites/phpmyadmin
+      server_name: amagno.com.br www.amagno.com.br dev.amagno.com.br dev.amagno localhost
+      location: /phpmyadmin
+      root: /sites/phpmyadmin

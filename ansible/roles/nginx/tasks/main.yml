@@ -1,5 +1,5 @@
 - name: Add nginx repository
-  apt_repository: repo=ppa:nginx/stable
+  apt_repository: repo=ppa:nginx/stable update_cache=yes
 
 
 - name: Install Nginx

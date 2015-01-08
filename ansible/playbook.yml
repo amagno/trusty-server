@@ -5,7 +5,7 @@
   # env: development or production
     env: development
   vars_files:
-    - vars/vars.yml
+    - config.yml
   roles:
     - init
     - system-packages

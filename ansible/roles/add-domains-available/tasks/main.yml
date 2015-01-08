@@ -6,6 +6,6 @@
 
 - name: Add domains Available to Nginx Sites-Available
   sudo: yes
-  template: src=vhost-nginx-template.j2 dest=/etc/nginx/sites-enabled/{{ item.server_name }} mode=644
+  template: src=vhost-nginx-template.j2 dest=/etc/nginx/sites-enabled/{{ item.name|lower() }} mode=644
   with_items: domains
   notify: restart nginx
